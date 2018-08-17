@@ -1,0 +1,6 @@
+replacements:
+- from: "Unknown command. Type \"help\" for help."
+  to: "Replaced message!"
+- from: "(?:§.)(.*) joined the game"
+  to: "&aWelcome, &e$1"
+  type: "regex"

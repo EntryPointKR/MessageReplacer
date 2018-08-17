@@ -1,0 +1,8 @@
+name: MessageReplacer
+version: @version@
+main: com.github.entrypointkr.messagereplacer.MessageReplacer
+softdepend: [ProtocolSupport, ProtocolLib]
+authors: [EntryPoint]
+commands:
+  messagereplacer:
+    aliases: [mrep, mr]
