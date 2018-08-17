@@ -17,6 +17,10 @@ public class ConfigurableReplacer implements IConfigurableReplacer {
     public final Combined combined;
     public final Replacer replacer;
 
+    /*
+        Object: Chain(Chain(CacheRemover, CombinedReplacer), ColorizeReplacer)
+        Flow: CacheRemover -> CombinedReplacer -> ColorizeReplacer
+     */
     public static ConfigurableReplacer createDefault(Supplier<Plugin> plugin) {
         CombinedReplacer combinedReplacer = new CombinedReplacer();
         ChainReplacer chainReplacer = new ChainReplacer(new ChatCacheRemover(plugin), combinedReplacer);
