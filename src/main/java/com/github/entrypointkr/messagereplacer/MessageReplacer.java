@@ -7,6 +7,8 @@ import com.github.entrypointkr.messagereplacer.handler.PlayerChatCacher;
 import com.github.entrypointkr.messagereplacer.handler.ProtocolLibMessageReplacer;
 import com.github.entrypointkr.messagereplacer.handler.ProtocolSupportHandlerInjector;
 import com.github.entrypointkr.messagereplacer.replacer.ConfigurableReplacer;
+import com.github.entrypointkr.messagereplacer.utils.LibUsageChart;
+import com.github.entrypointkr.messagereplacer.utils.Metrics;
 import com.github.entrypointkr.messagereplacer.utils.Reflections;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -23,11 +25,14 @@ public final class MessageReplacer extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
         REPLACER.load(new File(getDataFolder(), "config.yml"));
+        Metrics metrics = new Metrics(this);
         PluginManager manager = Bukkit.getPluginManager();
         if (manager.isPluginEnabled("ProtocolSupport")) {
             Bukkit.getPluginManager().registerEvents(new ProtocolSupportHandlerInjector(), this);
+            metrics.addCustomChart(new LibUsageChart(() -> "ProtocolSupport"));
         } else if (manager.isPluginEnabled("ProtocolLib")) {
             ProtocolLibrary.getProtocolManager().addPacketListener(getProperProtocolLibReplacer());
+            metrics.addCustomChart(new LibUsageChart(() -> "ProtocolLib"));
         } else {
             throw new IllegalStateException("Cannot find depend plugins (ProtocolSupport or ProtocolLib)");
         }
