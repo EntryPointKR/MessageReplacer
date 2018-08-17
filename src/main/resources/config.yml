@@ -4,3 +4,6 @@ replacements:
 - from: "(?:§.)(.*) joined the game"
   to: "&aWelcome, &e$1"
   type: "regex"
+- from: "fuck"
+  to: "love"
+  chat: true

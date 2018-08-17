@@ -1,6 +1,7 @@
 package com.github.entrypointkr.messagereplacer.replacer;
 
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Created by JunHyeong on 2018-08-17
@@ -12,7 +13,13 @@ public class Replacers {
                 : "default";
         String from = objectMap.get("from").toString();
         String to = objectMap.get("to").toString();
-        return createReplacer(typeStr, from, to);
+        boolean playerChat = Optional.ofNullable(objectMap.get("chat"))
+                .map(Object::toString)
+                .map(Boolean::parseBoolean)
+                .orElse(false);
+
+        Replacer replacer = createReplacer(typeStr, from, to);
+        return playerChat ? replacer : PredicateReplacer.ofNonPlayerChat(replacer);
     }
 
     public static Replacer createReplacer(String typeStr, Object... args) throws Exception {

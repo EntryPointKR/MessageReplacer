@@ -3,6 +3,7 @@ package com.github.entrypointkr.messagereplacer;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketListener;
 import com.github.entrypointkr.messagereplacer.handler.LegacyProtocolLibMessageReplacer;
+import com.github.entrypointkr.messagereplacer.handler.PlayerChatCacher;
 import com.github.entrypointkr.messagereplacer.handler.ProtocolLibMessageReplacer;
 import com.github.entrypointkr.messagereplacer.handler.ProtocolSupportHandlerInjector;
 import com.github.entrypointkr.messagereplacer.replacer.ConfigurableReplacer;
@@ -16,7 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 
 public final class MessageReplacer extends JavaPlugin {
-    public static final ConfigurableReplacer REPLACER = ConfigurableReplacer.ofColorizable();
+    public static final ConfigurableReplacer REPLACER = ConfigurableReplacer.createDefault();
 
     @Override
     public void onEnable() {
@@ -30,6 +31,7 @@ public final class MessageReplacer extends JavaPlugin {
         } else {
             throw new IllegalStateException("Cannot find depend plugins (ProtocolSupport or ProtocolLib)");
         }
+        Bukkit.getPluginManager().registerEvents(new PlayerChatCacher(), this);
     }
 
     private PacketListener getProperProtocolLibReplacer() {
