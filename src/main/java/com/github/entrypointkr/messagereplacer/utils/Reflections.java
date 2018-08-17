@@ -1,4 +1,4 @@
-package com.github.entrypointkr.messagereplacer;
+package com.github.entrypointkr.messagereplacer.utils;
 
 import org.bukkit.Bukkit;
 

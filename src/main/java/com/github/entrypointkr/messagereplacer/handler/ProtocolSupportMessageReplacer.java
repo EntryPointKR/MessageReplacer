@@ -1,6 +1,7 @@
 package com.github.entrypointkr.messagereplacer.handler;
 
 import com.github.entrypointkr.messagereplacer.MessageReplacer;
+import com.github.entrypointkr.messagereplacer.utils.Serializer;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import protocolsupport.api.Connection;
@@ -36,9 +37,11 @@ public class ProtocolSupportMessageReplacer extends Connection.PacketListener {
             String converted = MessageReplacer.REPLACER.replace(text);
             if (!text.equals(converted)) {
                 String newJson = ChatAPI.toJSON(new TextComponent(converted));
-                ByteBuf newBuf = Unpooled.buffer(2 + converted.length()); // ID(1) + JSON STRING + TYPE(1)
+                byte[] jsonBytes = Serializer.getStringBytes(version, newJson);
+
+                ByteBuf newBuf = Unpooled.buffer(3 + jsonBytes.length); // ID(1) +  JSON STRING & LEN + TYPE(1)
                 VarNumberSerializer.writeVarInt(newBuf, id);
-                StringSerializer.writeString(newBuf, version, newJson);
+                Serializer.writeStringBytes(newBuf, version, jsonBytes);
                 newBuf.writeByte(type);
                 event.setData(newBuf);
             }

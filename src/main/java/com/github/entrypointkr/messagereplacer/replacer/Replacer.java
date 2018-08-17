@@ -1,6 +1,6 @@
 package com.github.entrypointkr.messagereplacer.replacer;
 
-import com.github.entrypointkr.messagereplacer.Reflections;
+import com.github.entrypointkr.messagereplacer.utils.Reflections;
 
 /**
  * Created by JunHyeong on 2018-08-17

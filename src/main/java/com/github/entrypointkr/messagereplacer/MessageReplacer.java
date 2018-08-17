@@ -6,6 +6,7 @@ import com.github.entrypointkr.messagereplacer.handler.LegacyProtocolLibMessageR
 import com.github.entrypointkr.messagereplacer.handler.ProtocolLibMessageReplacer;
 import com.github.entrypointkr.messagereplacer.handler.ProtocolSupportHandlerInjector;
 import com.github.entrypointkr.messagereplacer.replacer.ConfigurableReplacer;
+import com.github.entrypointkr.messagereplacer.utils.Reflections;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
