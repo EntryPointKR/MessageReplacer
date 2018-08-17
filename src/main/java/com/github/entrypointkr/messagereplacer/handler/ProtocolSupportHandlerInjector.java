@@ -10,6 +10,6 @@ import protocolsupport.api.events.ConnectionOpenEvent;
 public class ProtocolSupportHandlerInjector implements Listener {
     @EventHandler
     public void onConnectionOpen(ConnectionOpenEvent e) {
-        e.getConnection().addPacketListener(new ProtocolSupportMessageReplacer());
+        e.getConnection().addPacketListener(new ProtocolSupportMessageReplacer(e.getConnection()));
     }
 }
