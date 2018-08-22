@@ -1,37 +1,29 @@
 package com.github.entrypointkr.messagereplacer.replacer;
 
-import com.github.entrypointkr.messagereplacer.handler.PlayerChatCacher;
-
 import java.util.function.Predicate;
 
 /**
  * Created by JunHyeong on 2018-08-17
  */
 public class PredicateReplacer implements Replacer {
-    private final Replacer replacer;
     private final Predicate<String> validator;
+    private final Replacer replacer;
+    private final Replacer elseRep;
 
-    public static PredicateReplacer ofNonPlayerChat(Replacer replacer) {
-        return new PredicateReplacer(replacer, contents -> {
-            for (String chat : PlayerChatCacher.MESSAGES) {
-                if (contents.endsWith(chat)) {
-                    return false;
-                }
-            }
-            return true;
-        });
+    public PredicateReplacer(Predicate<String> validator, Replacer replacer, Replacer elseRep) {
+        this.validator = validator;
+        this.replacer = replacer;
+        this.elseRep = elseRep;
     }
 
-    public PredicateReplacer(Replacer replacer, Predicate<String> validator) {
-        this.replacer = replacer;
-        this.validator = validator;
+    public PredicateReplacer(Predicate<String> validator, Replacer replacer) {
+        this(validator, replacer, IdentityReplacer.INSTANCE);
     }
 
     @Override
     public String replace(String content) {
-        if (validator.test(content)) {
-            return replacer.replace(content);
-        }
-        return content;
+        return validator.test(content)
+                ? replacer.replace(content)
+                : elseRep.replace(content);
     }
 }

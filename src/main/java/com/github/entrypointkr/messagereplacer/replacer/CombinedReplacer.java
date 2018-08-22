@@ -1,14 +1,14 @@
 package com.github.entrypointkr.messagereplacer.replacer;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created by JunHyeong on 2018-08-17
  */
 public class CombinedReplacer implements ICombinedReplacer {
-    private final Set<Replacer> replacers = new HashSet<>();
+    private final List<Replacer> replacers = new ArrayList<>();
 
     @Override
     public String replace(String content) {

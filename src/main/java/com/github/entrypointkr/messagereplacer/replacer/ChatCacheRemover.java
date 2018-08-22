@@ -1,8 +1,8 @@
 package com.github.entrypointkr.messagereplacer.replacer;
 
 import com.github.entrypointkr.messagereplacer.handler.PlayerChatCacher;
+import com.github.entrypointkr.messagereplacer.utils.CachedSupplier;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
 
 import java.util.function.Supplier;
@@ -17,11 +17,15 @@ public class ChatCacheRemover implements Replacer {
         this.plugin = plugin;
     }
 
+    public ChatCacheRemover() {
+        this(new CachedSupplier<>(() ->
+                Bukkit.getPluginManager().getPlugin("MessageReplacer")));
+    }
+
     @Override
     public String replace(String content) {
-        String stripColors = ChatColor.stripColor(content);
-        if (PlayerChatCacher.MESSAGES.contains(stripColors)) {
-            Bukkit.getScheduler().runTask(plugin.get(), () -> PlayerChatCacher.MESSAGES.remove(stripColors));
+        if (PlayerChatCacher.MESSAGES.contains(content)) {
+            Bukkit.getScheduler().runTask(plugin.get(), () -> PlayerChatCacher.MESSAGES.remove(content));
         }
         return content;
     }
