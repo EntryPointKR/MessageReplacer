@@ -3,6 +3,7 @@ package com.github.entrypointkr.messagereplacer.handler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.Plugin;
@@ -23,10 +24,13 @@ public class PlayerChatCacher implements Listener {
         Bukkit.getPluginManager().registerEvents(new PlayerChatCacher(), plugin);
     }
 
-    @EventHandler
+    @EventHandler(
+            ignoreCancelled = true,
+            priority = EventPriority.MONITOR
+    )
     public void onPlayerChat(AsyncPlayerChatEvent e) {
         String message = e.getMessage();
-        String formatedMessage = ChatColor.RESET + String.format(e.getFormat(), e.getPlayer().getDisplayName(), message);
+        String formatedMessage = String.format(e.getFormat(), e.getPlayer().getDisplayName(), message);
         MESSAGES.add(ChatColor.stripColor(formatedMessage));
     }
 }

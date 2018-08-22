@@ -1,5 +1,7 @@
 package com.github.entrypointkr.messagereplacer.replacer;
 
+import com.github.entrypointkr.messagereplacer.utils.DelegateOptionalMap;
+import com.github.entrypointkr.messagereplacer.utils.OptionalMap;
 import com.github.entrypointkr.messagereplacer.utils.Reflections;
 
 import java.util.Map;
@@ -9,18 +11,16 @@ import java.util.Map;
  */
 public class Replacers {
     public static Replacer createReplacer(Map<?, ?> objectMap) throws Exception {
-        String typeStr = objectMap.containsKey("type")
-                ? objectMap.get("type").toString()
-                : "default";
-        String from = objectMap.get("from").toString();
-        String to = objectMap.get("to").toString();
-
-        return createReplacer(typeStr, from, to);
+        OptionalMap<?, ?> map = new DelegateOptionalMap<>(objectMap);
+        String typeStr = map.getOptional("type")
+                .map(Object::toString)
+                .orElse("normal");
+        return createReplacer(typeStr, map);
     }
 
-    public static Replacer createReplacer(String typeStr, Object... args) throws Exception {
+    public static Replacer createReplacer(String typeStr, OptionalMap<?, ?> paramMap) throws Exception {
         return ReplacerType.getType(typeStr)
-                .createReplacer(args);
+                .createReplacer(paramMap);
     }
 
     public static Object replaceChatComponent(Replacer replacer, Object chatComponent) {

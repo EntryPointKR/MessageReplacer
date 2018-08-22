@@ -1,5 +1,11 @@
+# MessageReplacer
+# Options:
+# - type: normal(default) or regex
+# - scope: plugin(default) or chat or all
+# - ignore_case: true(default) or false. normal type only. If you want to use this in regex, use 'case insensitive expression' (?i).
+
 replacements:
-- from: "Unknown command. Type \"help\" for help."
+- from: "Unknown command. Type \"/help\" for help."
   to: "Replaced message by MessageReplacer!"
 - from: "(.*) joined the game"
   to: "&aWelcome, &e$1"

@@ -1,18 +1,29 @@
 package com.github.entrypointkr.messagereplacer.replacer;
 
-import org.apache.commons.lang.Validate;
+import com.github.entrypointkr.messagereplacer.utils.Booleans;
+import com.github.entrypointkr.messagereplacer.utils.OptionalMap;
+
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * Created by JunHyeong on 2018-08-17
  */
 public enum ReplacerType {
-    DEFAULT("default", args -> {
-        Validate.isTrue(args.length >= 2);
-        return new DefaultReplacer(args[0].toString(), args[1].toString());
+    DEFAULT("normal", map -> {
+        String from = getOrThrow(map, "from").toString();
+        String to = getOrThrow(map, "to").toString();
+        Boolean ignoreCase = map.getOptional("ignore_case")
+                .map(Object::toString)
+                .flatMap(Booleans::parseBoolean)
+                .orElse(true);
+        return new NormalReplacer(from, ColorizeReplacer.colorize(to), ignoreCase);
     }),
-    REGEX("regex", args -> {
-        Validate.isTrue(args.length >= 2);
-        return new RegexReplacer(args[0].toString(), args[1].toString());
+    REGEX("regex", map -> {
+        String from = getOrThrow(map, "from").toString();
+        String to = getOrThrow(map, "to").toString();
+        return new RegexReplacer(from, ColorizeReplacer.colorize(to));
     });
 
     public static ReplacerType getType(String name) throws Exception {
@@ -24,15 +35,24 @@ public enum ReplacerType {
         throw new Exception(String.format("The %s is invalid type.", name));
     }
 
-    private final String name;
-    private final ReplacerFactory factory;
+    private static <T> T getOrThrow(Map<?, ?> map, Object key, Function<Optional<Object>, Optional<T>> modifier) {
+        return modifier.apply(Optional.ofNullable(map.get(key)))
+                .orElseThrow(() -> new IllegalArgumentException("The value of a given \"" + key + "\" is null. Please check the config file."));
+    }
 
-    ReplacerType(String name, ReplacerFactory factory) {
+    private static Object getOrThrow(Map<?, ?> map, Object key) {
+        return getOrThrow(map, key, Function.identity());
+    }
+
+    private final String name;
+    private final Function<OptionalMap<?, ?>, Replacer> factory;
+
+    ReplacerType(String name, Function<OptionalMap<?, ?>, Replacer> factory) {
         this.name = name;
         this.factory = factory;
     }
 
-    public Replacer createReplacer(Object... args) {
-        return factory.create(args);
+    public Replacer createReplacer(OptionalMap<?, ?> paramMap) {
+        return factory.apply(paramMap);
     }
 }

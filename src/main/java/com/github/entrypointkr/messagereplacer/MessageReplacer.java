@@ -6,11 +6,9 @@ import com.github.entrypointkr.messagereplacer.handler.LegacyProtocolLibMessageR
 import com.github.entrypointkr.messagereplacer.handler.PlayerChatCacher;
 import com.github.entrypointkr.messagereplacer.handler.ProtocolLibMessageReplacer;
 import com.github.entrypointkr.messagereplacer.handler.ProtocolSupportHandlerInjector;
-import com.github.entrypointkr.messagereplacer.replacer.ChatCacheRemover;
-import com.github.entrypointkr.messagereplacer.replacer.ColorizeReplacer;
+import com.github.entrypointkr.messagereplacer.replacer.ApplicationReplacer;
 import com.github.entrypointkr.messagereplacer.replacer.CombinedReplacer;
 import com.github.entrypointkr.messagereplacer.replacer.ConfigurableReplacer;
-import com.github.entrypointkr.messagereplacer.replacer.DecolorizeReplacer;
 import com.github.entrypointkr.messagereplacer.replacer.PredicateReplacer;
 import com.github.entrypointkr.messagereplacer.replacer.Scope;
 import com.github.entrypointkr.messagereplacer.replacer.ScopeCombined;
@@ -35,20 +33,14 @@ public final class MessageReplacer extends JavaPlugin {
                     .put(Scope.CHAT, CHAT_REPLACER)
                     .put(Scope.PLUGIN, PLUGIN_REPLACER)
                     .put(Scope.ALL, DEFAULT_REPLACER),
-            new CombinedReplacer().addReplacer(
-                    new ChatCacheRemover(),
-                    DecolorizeReplacer.INSTANCE,
-                    new CombinedReplacer()
-                            .addReplacer(
-                                    new PredicateReplacer(
-                                            PlayerChatCacher.IS_PLAYER_CHAT,
-                                            CHAT_REPLACER,
-                                            PLUGIN_REPLACER
-                                    ),
-                                    DEFAULT_REPLACER
-                            ),
-                    ColorizeReplacer.INSTANCE
-            )
+            new ApplicationReplacer(new CombinedReplacer().addReplacer(
+                    new PredicateReplacer(
+                            PlayerChatCacher.IS_PLAYER_CHAT,
+                            CHAT_REPLACER,
+                            PLUGIN_REPLACER
+                    ),
+                    DEFAULT_REPLACER
+            ))
     );
 
     @Override
@@ -82,6 +74,7 @@ public final class MessageReplacer extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length >= 1 && "reload".equals(args[0])
                 && sender.hasPermission("messagereplacer.reload")) {
+            saveDefaultConfig();
             REPLACER.load(new File(getDataFolder(), "config.yml"));
             sender.sendMessage("Reloaded.");
         } else {
