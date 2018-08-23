@@ -3,17 +3,17 @@ package com.github.entrypointkr.messagereplacer.replacer;
 import com.github.entrypointkr.messagereplacer.utils.Booleans;
 import com.github.entrypointkr.messagereplacer.utils.OptionalMap;
 
-import java.util.Map;
-import java.util.Optional;
 import java.util.function.Function;
+
+import static com.github.entrypointkr.messagereplacer.replacer.Replacers.NULL_MESSAGE;
 
 /**
  * Created by JunHyeong on 2018-08-17
  */
 public enum ReplacerType {
     DEFAULT("normal", map -> {
-        String from = getOrThrow(map, "from").toString();
-        String to = getOrThrow(map, "to").toString();
+        String from = map.getOrThrow("from", NULL_MESSAGE).toString();
+        String to = map.getOrThrow("to", NULL_MESSAGE).toString();
         Boolean ignoreCase = map.getOptional("ignore_case")
                 .map(Object::toString)
                 .flatMap(Booleans::parseBoolean)
@@ -21,8 +21,8 @@ public enum ReplacerType {
         return new NormalReplacer(from, ColorizeReplacer.colorize(to), ignoreCase);
     }),
     REGEX("regex", map -> {
-        String from = getOrThrow(map, "from").toString();
-        String to = getOrThrow(map, "to").toString();
+        String from = map.getOrThrow("from", NULL_MESSAGE).toString();
+        String to = map.getOrThrow("to", NULL_MESSAGE).toString();
         return new RegexReplacer(from, ColorizeReplacer.colorize(to));
     });
 
@@ -33,15 +33,6 @@ public enum ReplacerType {
             }
         }
         throw new Exception(String.format("The %s is invalid type.", name));
-    }
-
-    private static <T> T getOrThrow(Map<?, ?> map, Object key, Function<Optional<Object>, Optional<T>> modifier) {
-        return modifier.apply(Optional.ofNullable(map.get(key)))
-                .orElseThrow(() -> new IllegalArgumentException("The value of a given \"" + key + "\" is null. Please check the config file."));
-    }
-
-    private static Object getOrThrow(Map<?, ?> map, Object key) {
-        return getOrThrow(map, key, Function.identity());
     }
 
     private final String name;

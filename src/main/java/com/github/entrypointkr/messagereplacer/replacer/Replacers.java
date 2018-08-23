@@ -10,6 +10,8 @@ import java.util.Map;
  * Created by JunHyeong on 2018-08-17
  */
 public class Replacers {
+    public static final String NULL_MESSAGE = "The value of a given \"%s\" is null. Please check the config file.";
+
     public static Replacer createReplacer(Map<?, ?> objectMap) throws Exception {
         OptionalMap<?, ?> map = new DelegateOptionalMap<>(objectMap);
         String typeStr = map.getOptional("type")
