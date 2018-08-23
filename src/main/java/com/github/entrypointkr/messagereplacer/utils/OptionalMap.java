@@ -8,7 +8,9 @@ import java.util.function.Function;
  * Created by JunHyeong on 2018-08-23
  */
 public interface OptionalMap<K, V> extends Map<K, V> {
-    Optional<V> getOptional(Object key);
+    default Optional<V> getOptional(Object key) {
+        return Optional.ofNullable(get(key));
+    }
 
     default <T> T getOrThrow(Object key, String mesage, Function<Optional<V>, Optional<T>> modifier) {
         return modifier.apply(getOptional(key))

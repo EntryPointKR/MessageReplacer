@@ -3,7 +3,6 @@ package com.github.entrypointkr.messagereplacer.utils;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
@@ -21,11 +20,6 @@ public class DelegateOptionalMap<K, V> implements OptionalMap<K, V> {
 
     public DelegateOptionalMap() {
         this(new HashMap<>());
-    }
-
-    @Override
-    public Optional<V> getOptional(Object key) {
-        return Optional.ofNullable(get(key));
     }
 
     @Override
