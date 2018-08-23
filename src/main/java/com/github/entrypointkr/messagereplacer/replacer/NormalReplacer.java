@@ -19,7 +19,7 @@ public class NormalReplacer implements Replacer {
             return text;
         }
         int start = 0;
-        int end = StringUtils.indexOfIgnoreCase(text, target, start);
+        int end = indexOfIgnoreCase(text, target, start);
         if (end == INDEX_NOT_FOUND) {
             return text;
         }
@@ -34,10 +34,32 @@ public class NormalReplacer implements Replacer {
             if (--max == 0) {
                 break;
             }
-            end = StringUtils.indexOfIgnoreCase(text, target, start);
+            end = indexOfIgnoreCase(text, target, start);
         }
         buf.append(text.substring(start));
         return buf.toString();
+    }
+
+    public static int indexOfIgnoreCase(String text, String target, int startPos) {
+        if (text == null || target == null) {
+            return INDEX_NOT_FOUND;
+        }
+        if (startPos < 0) {
+            startPos = 0;
+        }
+        int endLimit = (text.length() - target.length()) + 1;
+        if (startPos > endLimit) {
+            return INDEX_NOT_FOUND;
+        }
+        if (target.length() == 0) {
+            return startPos;
+        }
+        for (int i = startPos; i < endLimit; i++) {
+            if (text.regionMatches(true, i, target, 0, target.length())) {
+                return i;
+            }
+        }
+        return INDEX_NOT_FOUND;
     }
 
     public NormalReplacer(String from, String to, Boolean ignoreCase) {

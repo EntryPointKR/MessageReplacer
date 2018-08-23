@@ -10,6 +10,6 @@ replacements:
 - from: "(.*) joined the game"
   to: "&aWelcome, &e$1"
   type: "regex"
-- from: "fuck"
+- from: ["fuck", "shit", "ass"]
   to: "love"
   scope: all
