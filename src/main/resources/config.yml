@@ -13,3 +13,6 @@ replacements:
 - from: ["fuck", "shit", "ass"]
   to: "love"
   scope: all
+- from: "Ugly ad from plugin"
+  type: ignore
+  scope: plugin
