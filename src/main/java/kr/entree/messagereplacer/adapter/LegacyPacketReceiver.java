@@ -1,8 +1,9 @@
-package kr.entree.messagereplacer.module;
+package kr.entree.messagereplacer.adapter;
 
 import com.comphenix.protocol.Packets;
 import com.comphenix.protocol.events.ConnectionSide;
 import com.comphenix.protocol.events.PacketContainer;
+import kr.entree.messagereplacer.replacer.ReplacerManager;
 import org.bukkit.plugin.Plugin;
 
 /**

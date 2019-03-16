@@ -1,4 +1,4 @@
-package kr.entree.messagereplacer.module;
+package kr.entree.messagereplacer.util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;

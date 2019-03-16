@@ -1,6 +1,7 @@
-package kr.entree.messagereplacer.module;
+package kr.entree.messagereplacer.replacer;
 
 import kr.entree.messagereplacer.MessageReplacer;
+import kr.entree.messagereplacer.util.Enums;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;

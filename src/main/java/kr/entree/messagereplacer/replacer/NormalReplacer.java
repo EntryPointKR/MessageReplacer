@@ -1,4 +1,4 @@
-package kr.entree.messagereplacer.module;
+package kr.entree.messagereplacer.replacer;
 
 import java.util.Collection;
 import java.util.Collections;

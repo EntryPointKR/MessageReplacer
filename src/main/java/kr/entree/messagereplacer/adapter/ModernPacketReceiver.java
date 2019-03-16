@@ -1,8 +1,9 @@
-package kr.entree.messagereplacer.module;
+package kr.entree.messagereplacer.adapter;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
+import kr.entree.messagereplacer.replacer.ReplacerManager;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.plugin.Plugin;
 

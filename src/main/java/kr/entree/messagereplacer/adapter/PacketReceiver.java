@@ -1,4 +1,4 @@
-package kr.entree.messagereplacer.module;
+package kr.entree.messagereplacer.adapter;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ConnectionSide;
@@ -9,6 +9,11 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.injector.GamePhase;
 import kr.entree.messagereplacer.MessageReplacer;
+import kr.entree.messagereplacer.replacer.Replacer;
+import kr.entree.messagereplacer.replacer.ReplacerCancelException;
+import kr.entree.messagereplacer.replacer.ReplacerException;
+import kr.entree.messagereplacer.replacer.ReplacerManager;
+import kr.entree.messagereplacer.replacer.Scope;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
 

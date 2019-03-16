@@ -1,4 +1,6 @@
-package kr.entree.messagereplacer.module;
+package kr.entree.messagereplacer.util;
+
+import kr.entree.messagereplacer.replacer.Named;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
