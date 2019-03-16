@@ -34,14 +34,6 @@ public class MessageReplacer extends JavaPlugin {
         new Metrics(this);
     }
 
-    public ReplacerManager getReplacerManager() {
-        return replacerManager;
-    }
-
-    private File createConfigFile() {
-        return new File(getDataFolder(), "config.yml");
-    }
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender.isOp()) {
@@ -52,6 +44,10 @@ public class MessageReplacer extends JavaPlugin {
             sender.sendMessage(ChatColor.RED + "No permission!");
         }
         return true;
+    }
+
+    public void log(Throwable throwable, String message) {
+        getLogger().log(Level.WARNING, throwable, () -> message);
     }
 
     public PacketListener createProperPacketListener() {
@@ -65,7 +61,11 @@ public class MessageReplacer extends JavaPlugin {
         return new LegacyPacketReceiver(this, replacerManager);
     }
 
-    public void log(Throwable throwable, String message) {
-        getLogger().log(Level.WARNING, throwable, () -> message);
+    public ReplacerManager getReplacerManager() {
+        return replacerManager;
+    }
+
+    private File createConfigFile() {
+        return new File(getDataFolder(), "config.yml");
     }
 }
