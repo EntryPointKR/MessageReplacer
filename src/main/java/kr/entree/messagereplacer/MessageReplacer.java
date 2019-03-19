@@ -3,8 +3,8 @@ package kr.entree.messagereplacer;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketListener;
 import com.comphenix.protocol.utility.MinecraftReflection;
-import kr.entree.messagereplacer.adapter.LegacyPacketReceiver;
-import kr.entree.messagereplacer.adapter.ModernPacketReceiver;
+import kr.entree.messagereplacer.adapter.LegacyPacketReplacer;
+import kr.entree.messagereplacer.adapter.ModernPacketReplacer;
 import kr.entree.messagereplacer.replacer.ReplacerManager;
 import kr.entree.messagereplacer.util.Metrics;
 import org.bukkit.Bukkit;
@@ -53,12 +53,12 @@ public class MessageReplacer extends JavaPlugin {
     public PacketListener createProperPacketListener() {
         try {
             if (MinecraftReflection.getIChatBaseComponentClass() != null) {
-                return new ModernPacketReceiver(this, replacerManager);
+                return new ModernPacketReplacer(this, replacerManager);
             }
         } catch (Exception ex) {
             // Ignore
         }
-        return new LegacyPacketReceiver(this, replacerManager);
+        return new LegacyPacketReplacer(this, replacerManager);
     }
 
     public ReplacerManager getReplacerManager() {

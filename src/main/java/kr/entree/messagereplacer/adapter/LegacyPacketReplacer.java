@@ -10,8 +10,8 @@ import org.bukkit.plugin.Plugin;
  * Created by JunHyeong Lim on 2019-03-11
  */
 @SuppressWarnings("deprecation")
-public class LegacyPacketReceiver extends PacketReceiver {
-    public LegacyPacketReceiver(Plugin plugin, ReplacerManager manager) {
+public class LegacyPacketReplacer extends PacketMessageReplacer {
+    public LegacyPacketReplacer(Plugin plugin, ReplacerManager manager) {
         super(plugin, ConnectionSide.SERVER_SIDE, manager, Packets.Server.CHAT);
     }
 

@@ -10,8 +10,8 @@ import org.bukkit.plugin.Plugin;
 /**
  * Created by JunHyeong Lim on 2019-03-11
  */
-public class ModernPacketReceiver extends PacketReceiver {
-    public ModernPacketReceiver(Plugin plugin, ReplacerManager manager) {
+public class ModernPacketReplacer extends PacketMessageReplacer {
+    public ModernPacketReplacer(Plugin plugin, ReplacerManager manager) {
         super(plugin, manager, PacketType.Play.Server.CHAT);
     }
 

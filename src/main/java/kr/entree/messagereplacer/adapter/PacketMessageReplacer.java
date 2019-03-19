@@ -23,80 +23,80 @@ import java.util.Set;
 /**
  * Created by JunHyeong Lim on 2019-03-11
  */
-public abstract class PacketReceiver extends PacketAdapter {
+public abstract class PacketMessageReplacer extends PacketAdapter {
     private final ReplacerManager manager;
 
-    public PacketReceiver(AdapterParameteters params, ReplacerManager manager) {
+    public PacketMessageReplacer(AdapterParameteters params, ReplacerManager manager) {
         super(params);
         this.manager = manager;
     }
 
-    public PacketReceiver(Plugin plugin, ReplacerManager manager, PacketType... types) {
+    public PacketMessageReplacer(Plugin plugin, ReplacerManager manager, PacketType... types) {
         super(plugin, types);
         this.manager = manager;
     }
 
-    public PacketReceiver(Plugin plugin, Iterable<? extends PacketType> types, ReplacerManager manager) {
+    public PacketMessageReplacer(Plugin plugin, Iterable<? extends PacketType> types, ReplacerManager manager) {
         super(plugin, types);
         this.manager = manager;
     }
 
-    public PacketReceiver(Plugin plugin, ListenerPriority listenerPriority, Iterable<? extends PacketType> types, ReplacerManager manager) {
+    public PacketMessageReplacer(Plugin plugin, ListenerPriority listenerPriority, Iterable<? extends PacketType> types, ReplacerManager manager) {
         super(plugin, listenerPriority, types);
         this.manager = manager;
     }
 
-    public PacketReceiver(Plugin plugin, ListenerPriority listenerPriority, Iterable<? extends PacketType> types, ReplacerManager manager, ListenerOptions... options) {
+    public PacketMessageReplacer(Plugin plugin, ListenerPriority listenerPriority, Iterable<? extends PacketType> types, ReplacerManager manager, ListenerOptions... options) {
         super(plugin, listenerPriority, types, options);
         this.manager = manager;
     }
 
-    public PacketReceiver(Plugin plugin, ListenerPriority listenerPriority, ReplacerManager manager, PacketType... types) {
+    public PacketMessageReplacer(Plugin plugin, ListenerPriority listenerPriority, ReplacerManager manager, PacketType... types) {
         super(plugin, listenerPriority, types);
         this.manager = manager;
     }
 
-    public PacketReceiver(Plugin plugin, ConnectionSide connectionSide, ReplacerManager manager, Integer... packets) {
+    public PacketMessageReplacer(Plugin plugin, ConnectionSide connectionSide, ReplacerManager manager, Integer... packets) {
         super(plugin, connectionSide, packets);
         this.manager = manager;
     }
 
-    public PacketReceiver(Plugin plugin, ConnectionSide connectionSide, ListenerPriority listenerPriority, Set<Integer> packets, ReplacerManager manager) {
+    public PacketMessageReplacer(Plugin plugin, ConnectionSide connectionSide, ListenerPriority listenerPriority, Set<Integer> packets, ReplacerManager manager) {
         super(plugin, connectionSide, listenerPriority, packets);
         this.manager = manager;
     }
 
-    public PacketReceiver(Plugin plugin, ConnectionSide connectionSide, GamePhase gamePhase, Set<Integer> packets, ReplacerManager manager) {
+    public PacketMessageReplacer(Plugin plugin, ConnectionSide connectionSide, GamePhase gamePhase, Set<Integer> packets, ReplacerManager manager) {
         super(plugin, connectionSide, gamePhase, packets);
         this.manager = manager;
     }
 
-    public PacketReceiver(Plugin plugin, ConnectionSide connectionSide, ListenerPriority listenerPriority, GamePhase gamePhase, Set<Integer> packets, ReplacerManager manager) {
+    public PacketMessageReplacer(Plugin plugin, ConnectionSide connectionSide, ListenerPriority listenerPriority, GamePhase gamePhase, Set<Integer> packets, ReplacerManager manager) {
         super(plugin, connectionSide, listenerPriority, gamePhase, packets);
         this.manager = manager;
     }
 
-    public PacketReceiver(Plugin plugin, ConnectionSide connectionSide, ListenerPriority listenerPriority, ReplacerManager manager, Integer... packets) {
+    public PacketMessageReplacer(Plugin plugin, ConnectionSide connectionSide, ListenerPriority listenerPriority, ReplacerManager manager, Integer... packets) {
         super(plugin, connectionSide, listenerPriority, packets);
         this.manager = manager;
     }
 
-    public PacketReceiver(Plugin plugin, ConnectionSide connectionSide, ListenerOptions[] options, ReplacerManager manager, Integer... packets) {
+    public PacketMessageReplacer(Plugin plugin, ConnectionSide connectionSide, ListenerOptions[] options, ReplacerManager manager, Integer... packets) {
         super(plugin, connectionSide, options, packets);
         this.manager = manager;
     }
 
-    public PacketReceiver(Plugin plugin, ConnectionSide connectionSide, GamePhase gamePhase, ReplacerManager manager, Integer... packets) {
+    public PacketMessageReplacer(Plugin plugin, ConnectionSide connectionSide, GamePhase gamePhase, ReplacerManager manager, Integer... packets) {
         super(plugin, connectionSide, gamePhase, packets);
         this.manager = manager;
     }
 
-    public PacketReceiver(Plugin plugin, ConnectionSide connectionSide, ListenerPriority listenerPriority, GamePhase gamePhase, ReplacerManager manager, Integer... packets) {
+    public PacketMessageReplacer(Plugin plugin, ConnectionSide connectionSide, ListenerPriority listenerPriority, GamePhase gamePhase, ReplacerManager manager, Integer... packets) {
         super(plugin, connectionSide, listenerPriority, gamePhase, packets);
         this.manager = manager;
     }
 
-    public PacketReceiver(Plugin plugin, ConnectionSide connectionSide, ListenerPriority listenerPriority, GamePhase gamePhase, ListenerOptions[] options, ReplacerManager manager, Integer... packets) {
+    public PacketMessageReplacer(Plugin plugin, ConnectionSide connectionSide, ListenerPriority listenerPriority, GamePhase gamePhase, ListenerOptions[] options, ReplacerManager manager, Integer... packets) {
         super(plugin, connectionSide, listenerPriority, gamePhase, options, packets);
         this.manager = manager;
     }
