@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id "de.undercouch.download" version "3.4.3"
 }
 
 group = pluginGroup
@@ -8,14 +7,6 @@ version = pluginVersion
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-
-task downloadLibs(type: Download) {
-    src 'https://build.true-games.org/job/ProtocolSupport/lastSuccessfulBuild/artifact/target/ProtocolSupport.jar'
-    dest 'libs/ProtocolSupport.jar'
-    onlyIfModified true
-}
-
-compileJava.dependsOn downloadLibs
 
 repositories {
     mavenCentral()
@@ -34,7 +25,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'org.spigotmc', name: 'spigot-api', version: '1.13-R0.1-SNAPSHOT'
     compile group: 'com.comphenix.protocol', name: 'ProtocolLib', version:'4.4.0-SNAPSHOT'
-    compile group: 'io.netty', name: 'netty-buffer', version: '4.1.28.Final'
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 
