@@ -7,6 +7,8 @@ import kr.entree.messagereplacer.replacer.ReplacerManager;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.plugin.Plugin;
 
+import java.util.Optional;
+
 /**
  * Created by JunHyeong Lim on 2019-03-11
  */
@@ -16,9 +18,11 @@ public class ModernPacketReplacer extends PacketMessageReplacer {
     }
 
     @Override
-    protected String getMessage(PacketContainer packet) {
-        String json = packet.getChatComponents().read(0).getJson();
-        return ComponentSerializer.parse(json)[0].toLegacyText();
+    protected Optional<String> getMessage(PacketContainer packet) {
+        return Optional.ofNullable(packet.getChatComponents().read(0))
+                .map(WrappedChatComponent::getJson)
+                .map(ComponentSerializer::parse)
+                .map(components -> components[0].toLegacyText());
     }
 
     @Override

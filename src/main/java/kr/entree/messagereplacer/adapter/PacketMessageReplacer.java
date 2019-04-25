@@ -105,20 +105,21 @@ public abstract class PacketMessageReplacer extends PacketAdapter {
         return ChatColor.translateAlternateColorCodes('&', message);
     }
 
-    protected abstract String getMessage(PacketContainer packet);
+    protected abstract Optional<String> getMessage(PacketContainer packet);
 
     protected abstract void writeMessage(PacketContainer packet, String message);
 
     @Override
     public final void onPacketSending(PacketEvent event) {
         PacketContainer packet = event.getPacket();
-        String before = getMessage(packet);
-        Optional<String> afterOpt = replace(before);
-        if (afterOpt.isPresent()) {
-            writeMessage(packet, afterOpt.get());
-        } else {
-            event.setCancelled(true);
-        }
+        getMessage(packet).ifPresent(message -> {
+            Optional<String> replaced = replace(message);
+            if (replaced.isPresent()) {
+                writeMessage(packet, replaced.get());
+            } else {
+                event.setCancelled(true);
+            }
+        });
     }
 
     protected Optional<String> replace(String text) {

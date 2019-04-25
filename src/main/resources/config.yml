@@ -5,14 +5,14 @@
 # - ignore_case: true(default) or false. normal type only. If you want to use this in regex, use 'case insensitive expression' (?i).
 
 replacements:
-- from: "Unknown command. Type \"/help\" for help."
-  to: "Replaced message by MessageReplacer!"
-- from: "(.*) joined the game"
-  to: "&aWelcome, &e$1"
-  type: "regex"
-- from: ["fuck", "shit", "ass"]
-  to: "love"
-  scope: all
-- from: "Ugly ad from plugin"
-  type: ignore
-  scope: plugin
+  - from: "Unknown command. Type \"/help\" for help."
+    to: "Replaced message by MessageReplacer!"
+  - from: "(.*) joined the game"
+    to: "&aWelcome, &e$1"
+    type: "regex"
+  - from: ["fuck", "shit", "ass"]
+    to: "love"
+    scope: all
+  - from: "Ugly ad from plugin"
+    type: ignore
+    scope: plugin

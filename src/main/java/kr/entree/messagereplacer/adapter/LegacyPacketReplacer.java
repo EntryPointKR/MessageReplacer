@@ -6,6 +6,8 @@ import com.comphenix.protocol.events.PacketContainer;
 import kr.entree.messagereplacer.replacer.ReplacerManager;
 import org.bukkit.plugin.Plugin;
 
+import java.util.Optional;
+
 /**
  * Created by JunHyeong Lim on 2019-03-11
  */
@@ -16,8 +18,8 @@ public class LegacyPacketReplacer extends PacketMessageReplacer {
     }
 
     @Override
-    protected String getMessage(PacketContainer packet) {
-        return packet.getStrings().read(0);
+    protected Optional<String> getMessage(PacketContainer packet) {
+        return Optional.ofNullable(packet.getStrings().read(0));
     }
 
     @Override
